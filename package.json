@@ -1,0 +1,30 @@
+{
+  "name": "letterboxd-diary-heatmap",
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
+  "scripts": {
+    "build": "browserify main.js | uglifyjs -cm > build/bundle.js",
+    "start": "ecstatic -p 8000 .",
+    "watch": "watchify main.js -o build/bundle.js -dv"
+  },
+  "dependencies": {
+    "browserify": "^10.2.6",
+    "csv-parser": "^1.8.0",
+    "drag-and-drop-files": "0.0.1",
+    "ecstatic": "~0.8.0",
+    "event-stream": "^3.3.2",
+    "filereader-stream": "^0.2.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "q": "^1.4.1",
+    "react": "~0.13.3",
+    "reactify": "^1.1.1",
+    "through2": "^2.0.0",
+    "uglify-js": "^2.4.24",
+    "watchify": "^3.2.3"
+  },
+  "license": "MIT"
+}
