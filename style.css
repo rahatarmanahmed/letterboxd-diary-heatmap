@@ -48,3 +48,34 @@ rect.highlight {
 #credits, #credits a {
 	color: #333B42;	
 }
+
+#stats {
+    display: flex;
+    margin-top: 16px;
+    align-items: center;
+    justify-content: space-between;
+    background: #3D4852;
+    border-radius: 3px;
+}
+
+#stats .border {
+	width: 1px;
+	height: 70px;
+	background: #333C44
+}
+
+#stats > div {
+	text-align: center;
+	width: 200px;
+}
+#stats p, #stats h3 {
+	margin: 8px;
+}
+
+p, h1, h2, h3 {
+	text-align: center;
+}
+
+ul {
+	list-style: none;
+}

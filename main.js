@@ -76,7 +76,8 @@ var App = React.createClass({
       readDiary(first)
       .then(function(data) {
         self.setState({data: data});
-      });
+      })
+      .done();
     });
   },
   render: function () {
@@ -116,11 +117,59 @@ var App = React.createClass({
       </div>
     }
     else {
-      detail = <p>Click on a day to see the movies for that day</p>;
+      detail = <p>Click on a day to see the diary entries for that day</p>;
     }
+
+    var streaks = _(this.state.data)
+    .groupBy('Watched Date')
+    .keys()
+    .sortBy(_.first)
+    .reduce(function(streaks, date) {
+      var date = moment.unix(date);
+      var last = _.last(_.last(streaks));
+      if(last && date.clone().subtract(1, 'day').dayOfYear() === last.dayOfYear()) {
+        _.last(streaks).push(date);
+      }
+      else {
+        streaks.push([date]);
+      }
+      last = date;
+      return streaks;
+    }, []);
+
+    var totalRatings = this.state.data.length;
+    var longestStreak = _.max(streaks, 'length');
+    var currentStreak = _.last(_.last(streaks)).dayOfYear() === moment().dayOfYear() ?
+      _.last(streaks) : null;
+
+    var format = 'MMM D YYYY';
+    var shortFormat = 'MMM D';
 
     return <div>
       <HeatMap data={this.formattedData()} selectDay={this.selectDay} />
+      <div id="stats">
+        <div>
+          <p><small>Diary entries this year</small></p>
+          <h3>{totalRatings} total</h3>
+          <p><small>{moment().dayOfYear(1).format(format)} – {moment().format(format)}</small></p>
+        </div>
+        <div className="border"></div>
+        <div>
+          <p><small>Longest streak</small></p>
+          <h3>{longestStreak.length} days</h3>
+          <p><small>{_.first(longestStreak).format(shortFormat)} – {_.last(longestStreak).format(shortFormat)}</small></p>
+        </div>
+        <div className="border"></div>
+        <div>
+          <p><small>Current streak</small></p>
+          <h3>{currentStreak ? currentStreak.length : 0} days</h3>
+          {
+            currentStreak ?
+            <p><small>{_.first(currentStreak).format(shortFormat)} – {_.last(currentStreak).format(shortFormat)}</small></p> :
+            <p>&nbsp;</p>
+          }
+        </div>
+      </div>
       <div>{detail}</div>
     </div>;
   },
