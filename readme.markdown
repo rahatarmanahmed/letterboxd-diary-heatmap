@@ -1,5 +1,7 @@
 # Letterboxd Diary Heatmap
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rahatarmanahmed/letterboxd-diary-heatmap.svg)](https://greenkeeper.io/)
+
 Displays a heatmap of your [Letterboxd](http://letterboxd.com/) diary entries. For now, while they don't have an API, you have to use your exported data.
 
 Built using [react-starter](https://github.com/substack/react-starter)
